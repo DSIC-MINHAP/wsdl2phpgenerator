@@ -290,6 +290,10 @@ class Validator
      */
     private static function validateNamingConvention($name)
     {
+        // Check if name start with uppercase letter
+        if (preg_match('/^[A-Z]/', $name) == false) {
+            $name = ucfirst($name);
+        }
         // Prepend the string a to names that begin with anything but a-z This is to make a valid name
         if (preg_match('/^[A-Za-z_]/', $name) == false) {
             $name = self::NAME_PREFIX . ucfirst($name);
