@@ -92,7 +92,14 @@ class OutputManager
             if (!empty($namespace)) {
                 $file->addNamespace($namespace);
             }
-
+            if (!empty($namespace) && $this->config->get('use')) {
+                foreach ($class->getVariables() as $variable) {
+                    $file->addUse($variable->getComment()->getVar());
+                }
+            }
+//            foreach ($class->getVariables() as $variable) {
+//                ld($variable->getComment()->getVar()->getDatatype());
+//            }
             $file->addClass($class);
             $file->save($this->dir);
         }

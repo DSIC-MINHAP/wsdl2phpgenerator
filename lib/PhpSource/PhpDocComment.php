@@ -134,7 +134,6 @@ class PhpDocComment
             $description .= ' *' . PHP_EOL;
         }
         $ret = $description . $tags;
-
         if (!empty($ret)) {
             $ret = PHP_EOL . '/**' . PHP_EOL . $ret . ' */' . PHP_EOL;
         }
@@ -223,4 +222,13 @@ class PhpDocComment
     {
         $this->description = $description;
     }
+
+    /**
+     * @return PhpDocElement
+     */
+    public function getVar()
+    {
+        return $this->var;
+    }
+
 }

@@ -311,4 +311,166 @@ class PhpClass extends PhpElement
     {
         return array_key_exists($identifier, $this->functions);
     }
+
+    /**
+     * @return array
+     */
+    public function getDependencies()
+    {
+        return $this->dependencies;
+    }
+
+    /**
+     * @param array $dependencies
+     */
+    public function setDependencies($dependencies)
+    {
+        $this->dependencies = $dependencies;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isClassExists()
+    {
+        return $this->classExists;
+    }
+
+    /**
+     * @param boolean $classExists
+     */
+    public function setClassExists($classExists)
+    {
+        $this->classExists = $classExists;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isFinal()
+    {
+        return $this->final;
+    }
+
+    /**
+     * @param boolean $final
+     */
+    public function setFinal($final)
+    {
+        $this->final = $final;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExtends()
+    {
+        return $this->extends;
+    }
+
+    /**
+     * @param string $extends
+     */
+    public function setExtends($extends)
+    {
+        $this->extends = $extends;
+    }
+
+    /**
+     * @return \string[]
+     */
+    public function getImplements()
+    {
+        return $this->implements;
+    }
+
+    /**
+     * @param \string[] $implements
+     */
+    public function setImplements($implements)
+    {
+        $this->implements = $implements;
+    }
+
+    /**
+     * @return array
+     */
+    public function getConstants()
+    {
+        return $this->constants;
+    }
+
+    /**
+     * @param array $constants
+     */
+    public function setConstants($constants)
+    {
+        $this->constants = $constants;
+    }
+
+    /**
+     * @return PhpVariable[]
+     */
+    public function getVariables()
+    {
+        return $this->variables;
+    }
+
+    /**
+     * @param PhpVariable[] $variables
+     */
+    public function setVariables($variables)
+    {
+        $this->variables = $variables;
+    }
+
+    /**
+     * @return PhpFunction[]
+     */
+    public function getFunctions()
+    {
+        return $this->functions;
+    }
+
+    /**
+     * @param PhpFunction[] $functions
+     */
+    public function setFunctions($functions)
+    {
+        $this->functions = $functions;
+    }
+
+    /**
+     * @return PhpDocComment
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param PhpDocComment $comment
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isAbstract()
+    {
+        return $this->abstract;
+    }
+
+    /**
+     * @param boolean $abstract
+     */
+    public function setAbstract($abstract)
+    {
+        $this->abstract = $abstract;
+    }
+
+
 }

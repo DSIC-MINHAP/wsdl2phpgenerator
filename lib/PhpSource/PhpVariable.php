@@ -62,4 +62,38 @@ class PhpVariable extends PhpElement
 
         return $ret;
     }
+
+    /**
+     * @return PhpDocComment
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param PhpDocComment $comment
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+    }
+
+    /**
+     * @return string
+     */
+    public function getInitialization()
+    {
+        return $this->initialization;
+    }
+
+    /**
+     * @param string $initialization
+     */
+    public function setInitialization($initialization)
+    {
+        $this->initialization = $initialization;
+    }
+
+
 }

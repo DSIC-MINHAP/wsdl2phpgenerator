@@ -5,6 +5,7 @@
 namespace Wsdl2PhpGenerator\PhpSource;
 
 use Exception;
+use Wsdl2PhpGenerator\Validator;
 
 /**
  * Class that represents the source code for a php file
@@ -32,6 +33,13 @@ class PhpFile
 
     /**
      *
+     * @var array Array of strings, the strings are uses names
+     * @access private
+     */
+    private $uses;
+
+    /**
+     *
      * @var array Array of PhpClass objects
      * @access private
      */
@@ -53,6 +61,7 @@ class PhpFile
     {
         $this->name = $name;
         $this->namespaces = array();
+        $this->uses = array();
         $this->classes = array();
         $this->functions = array();
     }
@@ -68,6 +77,15 @@ class PhpFile
 
         if (count($this->namespaces) > 0) {
             $ret .= 'namespace ' . $this->namespaces[0] . ';' . PHP_EOL . PHP_EOL;
+        }
+        if (count($this->uses) > 0) {
+            foreach ($this->uses as $use) {
+                if($use == '\DateTime'){
+                    $ret .= 'use ' . $use . ';' . PHP_EOL . PHP_EOL;
+                }else {
+                    $ret .= 'use ' . $this->namespaces[0] . '\\' . $use . ';' . PHP_EOL . PHP_EOL;
+                }
+            }
         }
 
         if (count($this->classes) > 0) {
@@ -130,6 +148,18 @@ class PhpFile
         }
 
         $this->classes[$class->getIdentifier()] = $class;
+    }
+
+    /**
+     * Adds a class to the file
+     *
+     * @param PhpDocElement $var The variable to add
+     */
+    public function addUse(PhpDocElement $var)
+    {
+        if (Validator::validatePrimitiveType($var->getDatatype())){
+            $this->uses[$var->getDatatype()] = $var->getDatatype();
+        }
     }
 
     /**

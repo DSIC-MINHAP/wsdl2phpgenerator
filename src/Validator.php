@@ -35,6 +35,37 @@ class Validator
      * @var array
      * @link http://www.php.net/manual/en/reserved.keywords.php
      */
+    private static $primitives = array(
+        "int",
+        "integer",
+        "long",
+        "byte",
+        "short",
+        "negativeinteger",
+        "nonnegativeinteger",
+        "nonpositiveinteger",
+        "positiveinteger",
+        "unsignedbyte",
+        "unsignedint",
+        "unsignedlong",
+        "unsignedshort",
+        "float",
+        "double",
+        "decimal",
+        "array",
+        "<anyxml>",
+        "string",
+        "token",
+        "normalizedstring",
+        "hexbinary",
+        "datetime"
+    );
+    /**
+     * Array containing all PHP keywords.
+     *
+     * @var array
+     * @link http://www.php.net/manual/en/reserved.keywords.php
+     */
     private static $keywords = array(
         '__halt_compiler',
         'abstract',
@@ -186,7 +217,8 @@ class Validator
     public static function validateType($typeName)
     {
         if (substr($typeName, -2) == "[]") {
-            return $typeName;
+            return 'array';
+//            return $typeName;
         }
 
         switch (strtolower($typeName)) {
@@ -230,6 +262,23 @@ class Validator
         }
 
         return $typeName;
+    }
+
+    /**
+     * Validates a wsdl type against known PHP primitive types, or otherwise
+     * validates the namespace of the type to PHP naming conventions
+     *
+     * @param string $typeName the type to test
+     * @return string the validated version of the submitted type
+     */
+    public static function validatePrimitiveType($typeName)
+    {
+
+        if (in_array($typeName, self::$primitives)) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
