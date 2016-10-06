@@ -11,7 +11,7 @@
         }
     },
     "autoload-dev": {
-        "psr-4": {
+        "psr-0": {
             "Wsdl2PhpGenerator\\Tests\\": ["tests/src"]
         }
     },
