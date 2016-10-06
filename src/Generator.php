@@ -121,8 +121,7 @@ class Generator implements GeneratorInterface
 
         foreach ($this->wsdl->getOperations() as $function) {
             $this->log('Loading function ' . $function->getName());
-
-            $this->service->addOperation(new Operation($function->getName(), $function->getParams(), $function->getDocumentation(), $function->getReturns()));
+            $this->service->addOperation(new Operation($function->getName(), $function->getParams(), $function->getDocumentation(), Validator::validateType($function->getReturns())));
         }
 
         $this->log('Done loading service ' . $service->getName());
@@ -192,7 +191,6 @@ class Generator implements GeneratorInterface
                 $this->types[$type->getName()]->setBaseType($this->types[$baseType]);
             }
         }
-
         $this->log('Done loading types');
     }
 

@@ -192,7 +192,6 @@ class Service implements ClassGenerator
         // Add all methods
         foreach ($this->operations as $operation) {
             $name = Validator::validateOperation($operation->getName());
-
             $comment = new PhpDocComment($operation->getDescription());
             $comment->setReturn(PhpDocElementFactory::getReturn($operation->getReturns(), ''));
 

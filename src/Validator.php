@@ -146,7 +146,7 @@ class Validator
      */
     public static function validateClass($name, $namespace = null)
     {
-        $name = self::validateNamingConvention($name);
+        $name = self::validateNamingConvention($name, true, true);
 
         $prefix = !empty($namespace) ? $namespace . '\\' : '';
 
@@ -172,10 +172,11 @@ class Validator
      */
     public static function validateOperation($name)
     {
-        $name = self::validateNamingConvention($name);
+        $name = self::validateNamingConvention($name, false, true);
         if (self::isKeyword($name)) {
             $name = self::NAME_PREFIX . ucfirst($name);
         }
+
         return $name;
     }
 
@@ -189,7 +190,7 @@ class Validator
     {
         // Contrary to other validations attributes can have names which are also keywords. Thus no need to check for
         // this here.
-        return self::validateNamingConvention($name);
+        return self::validateNamingConvention($name, false, false);
     }
 
     /**
@@ -219,6 +220,7 @@ class Validator
         if (substr($typeName, -2) == "[]") {
             return 'array';
 //            return $typeName;
+//            return self::validateNamingConvention($typeName, true, true);
         }
 
         switch (strtolower($typeName)) {
@@ -253,7 +255,7 @@ class Validator
                 return  '\DateTime';
                 break;
             default:
-                $typeName = self::validateNamingConvention($typeName);
+                $typeName = self::validateNamingConvention($typeName, true, true);
                 break;
         }
 
@@ -265,8 +267,6 @@ class Validator
     }
 
     /**
-     * Validates a wsdl type against known PHP primitive types, or otherwise
-     * validates the namespace of the type to PHP naming conventions
      *
      * @param string $typeName the type to test
      * @return string the validated version of the submitted type
@@ -337,10 +337,17 @@ class Validator
      * @param string $name the name to validate
      * @return string the validated version of the submitted name
      */
-    private static function validateNamingConvention($name)
+    private static function validateNamingConvention($name, $upperFirst = false, $camelize = false)
     {
+        if ($camelize) {
+            $name = lcfirst(preg_replace_callback(
+                "/(^|_)([a-z])/",
+                function($m) { return strtoupper("$m[2]"); },
+                $name
+            ));
+        }
         // Check if name start with uppercase letter
-        if (preg_match('/^[A-Z]/', $name) == false) {
+        if ($upperFirst && (preg_match('/^[A-Z]/', $name) == false)) {
             $name = ucfirst($name);
         }
         // Prepend the string a to names that begin with anything but a-z This is to make a valid name

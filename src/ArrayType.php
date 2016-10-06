@@ -74,7 +74,7 @@ class ArrayType extends ComplexType
         $offsetGetDock = new PhpDocComment();
         $offsetGetDock->setDescription($description);
         $offsetGetDock->addParam(PhpDocElementFactory::getParam('mixed', 'offset', 'The offset to retrieve'));
-        $offsetGetDock->setReturn(PhpDocElementFactory::getReturn($this->arrayOf, ''));
+        $offsetGetDock->setReturn(PhpDocElementFactory::getReturn(Validator::validateType($this->arrayOf), ''));
         $offsetGet = new PhpFunction(
             'public',
             'offsetGet',
@@ -93,7 +93,7 @@ class ArrayType extends ComplexType
         $offsetSetDock = new PhpDocComment();
         $offsetSetDock->setDescription($description);
         $offsetSetDock->addParam(PhpDocElementFactory::getParam('mixed', 'offset', 'The offset to assign the value to'));
-        $offsetSetDock->addParam(PhpDocElementFactory::getParam($this->arrayOf, 'value', 'The value to set'));
+        $offsetSetDock->addParam(PhpDocElementFactory::getParam(Validator::validateType($this->arrayOf), 'value', 'The value to set'));
         $offsetSetDock->setReturn(PhpDocElementFactory::getReturn('void', ''));
         $offsetSet = new PhpFunction(
             'public',
@@ -142,7 +142,7 @@ class ArrayType extends ComplexType
 
         $currentDock = new PhpDocComment();
         $currentDock->setDescription($description);
-        $currentDock->setReturn(PhpDocElementFactory::getReturn($this->arrayOf, 'Return the current element'));
+        $currentDock->setReturn(PhpDocElementFactory::getReturn(Validator::validateType($this->arrayOf), 'Return the current element'));
         $current = new PhpFunction(
             'public',
             'current',
@@ -228,7 +228,7 @@ class ArrayType extends ComplexType
 
         $countDock = new PhpDocComment();
         $countDock->setDescription($description);
-        $countDock->setReturn(PhpDocElementFactory::getReturn($this->arrayOf, 'Return count of elements'));
+        $countDock->setReturn(PhpDocElementFactory::getReturn('integer', 'Return count of elements'));
         $count = new PhpFunction(
             'public',
             'count',
