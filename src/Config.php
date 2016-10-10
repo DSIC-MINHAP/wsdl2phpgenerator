@@ -68,6 +68,7 @@ class Config implements ConfigInterface
         $resolver->setDefaults(array(
             'verbose'                        => false,
             'use'                            => false,
+            'oneFile'                        => false,
             'namespaceName'                  => '',
             'classNames'                     => '',
             'operationNames'                 => '',
